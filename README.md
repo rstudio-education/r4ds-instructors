@@ -124,11 +124,10 @@ Derived constraints:
 - Use `. ~ COLUMN` or `COLUMN ~ .` as a formula to display facets in rows or columns only.
 - Use `geom_point` to create a scatterplot and `geom_smooth` to create a line chart.
 - Add multiple geometries after the initial call to `ggplot` 
-- The visual aspects of a plot can be specified:
+- The visual aspects of a plot can be specified as follows (each overrides the one(s) before):
   - Globally by specifying a value in the initial `ggplot` function.
   - For a particular geometry by specifying a value outside an aesthetic.
   - In a data-dependent way by setting a property of an aesthetic.
-  Each overrides the one(s) before.
 - A stat performs a data transformation, such as counting the number of elements in a subset of the data.
 - Stats and geometries can often be used interchangeably since each stat has a default geometry and each geometry has a default stat.
 - Map one variable to `x` and another to `fill` in the aesthetic for `geom_bar` to create a stacked bar chart.
