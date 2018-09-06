@@ -50,7 +50,7 @@ Derived constraints:
   but will primarily be learning on their own and by searching
   online (both).
 
-## Introduction
+## 1. Introduction
 
 ### Objectives
 
@@ -81,7 +81,11 @@ Derived constraints:
   - Includes a small amount of data.
   - Has short, readable code.
 
-## Data Visualization
+## 2. Introduction
+
+- See above.
+
+## 3. Data Visualization
 
 ### Objectives
 
@@ -155,7 +159,7 @@ ggplot(data = <DATA>) +
   <FACET_FUNCTION>
 ```
 
-## Workflow
+## 4. Workflow: Basics
 
 ### Objectives
 
@@ -168,3 +172,80 @@ ggplot(data = <DATA>) +
 - Use `name <- value` to assign a value to a variable (do not use `=`).
 - Use `function(value1, value2)` to call a function.
 - Construct variable names out of words joined with underscores `like_this_example`.
+
+## 5. Data Transformation
+
+### Objectives
+
+- Describe the five basic data transformation operations in the tidyverse and explain their purpose.
+- Choose records by value using comparisons and logical operators.
+- Explain why filter conditions shouldn't use `==`, and correctly use `%in%` instead.
+- Explain the purpose of `NA`, how it affects arithmetic and logical operations, and how to test for it.
+- Explain how filtering treats `NA` and how to obtain different behavior.
+- Reorder records in ascending or descending order according to the values of one or more variables.
+- Select a subset of variables for all records by variable name.
+- Select and rename a subset of variables for all records by variable name.
+- Add new variables to a frame by deriving new values from existing ones.
+- Combine the values in a data frame to create one new value, or one new value per group.
+- Explain how summarization treats missing values (`NA`) and how to change this behavior.
+- Combine multiple transformations in order using pipe notation.
+- Explain why and how to include counts in summarization as a check on the validity of conclusions.
+- Name and describe half a dozen common summarization functions.
+- Explain the relationship between grouping and summarization.
+
+### Key Points
+
+- The five basic data transformation operations in the tidyverse are:
+  - `filter`: choose records by value(s).
+  - `arrange`: reorder records.
+  - `select`: choose variables by name.
+  - `mutate`: derive new variables from existing ones.
+  - `summarize`: combine many values to create a single new value.
+- `filter(frame, ...criteria...)` keeps records that pass all of the specified criteria
+  - `name == value`: records must have the specified value for the named variable (note `==` rather than `=`).
+  - `name > value`: the records' values must be greater than the given value (and similarly for `>=`, `!=`, `<`, and `<=`).
+  - `min_rank(name)` to rank variables, giving the smallest values the smallest ranks.
+  - Use `near(expression, value)` to compare floating-point numbers rather than `==`.
+  - Use `&` (and) to require both conditions, `|` (or) to accept either condition, and `!` (not) to invert the sense of a condition.
+- Use `name %in% (value1, value2, ...)` to accept any of a fixed set of values for a variable.
+- `NA` (meaning "not available") represents unknown values.
+- Most operations involving `NA` produce `NA`, because there's no way to know the output without knowing the input.
+- Use `is.na(value)` to determine if a value is `NA`.
+- `filter` discards records with `FALSE` and `NA` results in tests.
+  - Use `is.na(value)` to include `NA`'s explicitly.
+- Use `desc(name)` to order by descending value of the variable `name` instead of by ascending value.
+- Use `select(frame, name1, name2, ...)` to select only the named variables from the given frame.
+- Use `name1:name1` to select all variables from `name1` to `name2` (inclusive).
+- Use `-(name1:name2)` to unselect all variables from `name1` to `name2` (inclusive).
+- Use `rename(frame, new_name = old_name)` to select and rename variables from a frame.
+- Use `everything()` to select every variable that hasn't otherwise been selected.
+- Use `one_of(c("name1", "name2"))` to select all of the variables named in the given vector.
+- Use `mutate(frame, name1=expression1, name2=expression2, ...)` to add new variables to the end of the given frame.
+- Use `transmute(frame, name1=expression1, name2=expression2, ...)` create a new data frame whose values are derived from the values of an existing frame.
+- Use `group_by(frame, name1, name2, ...)` to group the values of `frame` according to distinct combinations of the values of the named variables.
+  - Use `ungroup` to restore the original data.
+- Use `summarize(frame, name = function(...))` to aggregate the values in an entire data frame or by group within a data frame.
+- By default `summarize` produces `NA` as output when there are `NA`s in the input.
+- Use `na.rm = TRUE` to remove `NA`s from the data before summarization.
+- Use `frame %>% operation1(...) %>% operation2(...) %>% ...` to produce a new data frame by applying each operation to an existing one in order.
+- Use `n()` (for a simple count) or `sum(!is.na(name))` (to count the number of non-`NA`s) when summarizing values in order to see how many records contribute to an aggregated result.
+- Common summarization functions include:
+  - `mean` and `median`
+  - `sd` for standard deviation
+  - `min`, `quantile`, and `max` for extrema and intermediate values
+  - `first`, `nth`, and `last` for positional extrema and intermediate values
+  - `n_distinct` for the number of distinct values
+  - `count` to calculate counts or weighted sums
+- Each summarization peels off one layer of grouping.
+
+## 6. Workflow: Scripts
+
+FIXME
+
+## 7. Exploratory Data Analysis
+
+FIXME
+
+## 8. Workflow: Projects
+
+FIXME
