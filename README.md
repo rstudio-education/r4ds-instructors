@@ -240,7 +240,18 @@ ggplot(data = <DATA>) +
 
 ## 6. Workflow: Scripts
 
-FIXME
+### Objectives
+
+- Use the RStudio editor to write, save, and run R scripts.
+- Describe two things that should *not* be put in scripts.
+- Explain how to spot and fix syntax errors in the RStudio editor.
+
+### Key Points
+
+- Use Cmd/Ctrl + Enter in the editor to run the current R expression in the console.
+- Use Cmd/Ctrl + Shift + S to run the complete script in the console.
+- Do not put `install.packages` or `setwd` in scripts, since they will affect other people's machines when run.
+- The RStudio editor uses white-on-red X's and red squiggly underlining to highlight syntax errors.
 
 ## 7. Exploratory Data Analysis
 
