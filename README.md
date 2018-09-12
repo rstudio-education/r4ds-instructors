@@ -255,7 +255,7 @@ ggplot(data = <DATA>) +
 
 ## 7. Exploratory Data Analysis
 
-### Objectives
+### oObjectives
 
 - Describe the steps in exploratory data analysis (EDA).
 - Describe two types of questions that are useful to ask during EDA.
@@ -327,3 +327,24 @@ ggplot(data = <DATA>) +
   - Use `cut_width` or `cut_number` to bin continuous values by value range or number of values respectively.
 - Omitting argument names for commonly-used functions makes code easier for experienced programmers to understand.
   - The first two arguments to `ggplot` are the dataset and the mapping.
+
+## 8. Workflow: Projects
+
+### Objectives
+
+- Explain why analysts should save scripts rather than environments.
+- Explain what a *working directory* is and how to find what yours is.
+- Explain why setting your working directory from within your script is a bad idea.
+- Explain the difference between an *absolute path* and a *relative path* and the meaning of the symbol `~` in a path.
+- Explain what an RStudio project is and how one is stored.
+
+### Key Points
+
+- Analysts should save scripts rather than environments because it is much easier to reconstruct an environment from a script than to reconstruct a script from an environment.
+- The *working directory* is the directory where R looks for and saves files by default, and is displayed by calling `getwd()`.
+- Setting the working directory from within a script with `setwd` makes reproducibility more difficult because that directory may not exist on some other (person's) machine.
+- An *absolute path* specifies a single location starting from the top of the filesystem.
+- A *relative path* specifies a location starting from the current directory, and may identify different locations depending on where it is used.
+- The symbol `~` refers to the user's home directory on macOS and Linux, and to the user's `Documents` directory on Windows.
+- An RStudio project is a directory that contains the scripts and other files involved in an analysis.
+- Each RStudio project contains a `.Rproj` file with information about the project.
