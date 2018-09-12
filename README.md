@@ -348,3 +348,33 @@ ggplot(data = <DATA>) +
 - The symbol `~` refers to the user's home directory on macOS and Linux, and to the user's `Documents` directory on Windows.
 - An RStudio project is a directory that contains the scripts and other files involved in an analysis.
 - Each RStudio project contains a `.Rproj` file with information about the project.
+
+## 10. Tibbles
+
+### Objectives
+
+- Explain the relationship between a tibble and a `data.frame` and the main ways in which tibbles differ from `data.frame`s.
+- Create tibbles from `data.frame`s and from scratch.
+- Explain what a *non-syntactic name* is and how to create tibble columns with non-syntactic names.
+- FIXME: explain how to use `tribble` (which requires an understanding of `~`).
+- Display an arbitrary number of rows and columns of a tibble.
+- Subset tibbles using `[[...]]`.
+- Subset tibbles using `$`.
+- FIXME: explain use of `[...]` (single bracket).
+
+### Key Points
+
+- A tibble is a `data.frame` whose behaviors have been modified to work better with the tidyverse.
+  - Tibbles never change their inputs' types.
+  - Tibbles never adjust the names of variables.
+  - Tibbles evaluate their constructor arguments lazily and sequentially, so that later variables can use the values of earlier variables.
+  - Tibbles do not create row names.
+  - Tibbles only recycle inputs of length 1, because recycling longer inputs has been a frequent source of bugs.
+- Tibbles can be created from `data.frame`s using `as_tibble` or from scratch using `tibble`.
+  - Use `is_tibble` to determine if something is a tibble or not.
+  - Use `class` to determine the classes of something.
+- A *non-syntactic name* is one which is not a valid R variable name.
+- To create a non-syntactic column name, enclose the name in back-quotes.
+- Use `print` with `n` to set the number of rows and `width` to set the number of character columns.
+- Use `name[["variable"]]` or `name$variable` to extract the column named `variable` from a tibble.
+- Use `name[[N]]` to extract column `N` (integer) from a tibble.
