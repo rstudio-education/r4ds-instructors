@@ -142,7 +142,7 @@ Derived constraints:
 - The seven parameters of a full ggplot2 visualization are:
   - data: the data frame to be plotted
   - geometry: how the data is to be displayed (e.g., scatterplot or line)
-  - mapping: how the properties of the data map to the properties of the geometry (e.g., which columsn map to X and Y coordinates)
+  - mapping: how the properties of the data map to the properties of the geometry (e.g., which columns map to X and Y coordinates)
   - stat: the transformation to apply to the data (e.g., count the number of observations)
   - position: how to adjust the positions of displayed elements (e.g., jittering points in a scatterplot)
   - coordinate function: whether to use Cartesian coordinates or polar coordinates
@@ -255,8 +255,75 @@ ggplot(data = <DATA>) +
 
 ## 7. Exploratory Data Analysis
 
-FIXME
+### Objectives
 
-## 8. Workflow: Projects
+- Describe the steps in exploratory data analysis (EDA).
+- Describe two types of questions that are useful to ask during EDA.
+- Correctly define *variable*, *value*, *observation*, *variation*, and *tidy data*.
+- Explain what a *categorical variable* is and how to best to store and visualize one.
+- Explain what a *continuous variable* is and how best to store and visualize one.
+- Explain why it is important to use a variety of bin widths when visualizing continuous variables as histograms.
+- List three questions whose answers will help you understand your data.
+- Describe and use a heuristic for identifying subgroups in data.
+- Explain how to handle outliers or unusual values in data.
+- Define *covariance* and describe how to visualize it for different combinations of two categorical and continuous variables.
+- Explain how to make code clearer to experienced readers by omitting information.
 
-FIXME
+### Key Points
+
+- Exploratory data analysis consists of:
+  - Generating questions about data.
+  - Searching for answers by visualizing, transforming, and modeling data.
+  - Using what is found to refine questions or generate new ones.
+- Two questions that are always useful to ask during EDA are:
+  - What type of variation occurs within my variables?
+  - What type of covariation occurs between my variables?
+- A *variable* is something that can be measured.
+- A *value* is the state of a variable when measured.
+- An *observation* is a set of measurements made under similar conditions, and may contain several values (each associated with a different variable).
+- *Variation* is the tendency of values to differ from measurement to measurement.
+- *Tidy data* is a set of values, each of which is associated with exactly one variable and observation.
+  Tidy data is usually displayed in tabular form: each observation (or record) is a row, while each variable is a column with a name and a type.
+- A *categorical variable* is one that takes on only one of a small set of values.
+  - Categorical variables are best represented using factors or character strings.
+  - The distribution of a categorical variable is best visualized using a bar chart (created using `geom_bar`).
+  - `dplyr::count(name)` counts the number of occurrences of each value of a categorical variable.
+- A *continuous variable* is one that takes on any of an infinite set of ordered values.
+  - Categorical variables are best represented using numbers or date-times.
+  - The distribution of a categorical variable is best visualized using a histogram.
+  - `dplyr::count(ggplot2::cut_width(name, width))` divides occurrences into bins and counts the number of occurrences in each bin.
+- Histograms with different bin widths can have very different visual appearances, so varying the bin width provides insight that no single bin width can.
+  - Use `geom_histogram(mapping=..., binwidth=value)` to vary the width of histogram bins.
+  - Or `geom_freqpoly` to display histograms using lines instead of bars.
+- Three questions to ask of any dataset are:
+  - Which values are most common (and why)?
+  - Which values are rare (and why)?
+  - What patterns are present in the data?
+    - How can you describe the pattern?
+    - How strong is it?
+    - Is it a coincidence?
+    - Does the pattern change if you examine subgroups of the data?
+- Clusters of similar values suggest that data contains subgroups.  To characterize these subgroups, ask:
+  - How are observations in each cluster similar?
+  - How do observations in different clusters differ?
+  - What might explain the existence of these clusters?
+  - How might the appearance of these clusters be misleading (e.g., an artifact of the visualization used)?
+- If outliers are present, repeat each analysis with and without them.
+  - If there are only a few, and dropping them doesn't affect results, use `mutate` and `ifelse` to replace them with `NA`.
+  - If there are many, or dropping them changes results, account for them in analysis and reporting.
+- *Covariation* is the tendency for some variables to vary in related ways.
+- When visualizing the relationship between continuous and categorical variables:
+  - Displaying raw counts can be misleading if the number of items in different categories varies widely.
+  - Displaying *densities* (i.e., counts standardized so that the area of each curve is the same) can be more informative.
+  - Boxplots show less of the raw data, but are easier to interpret when there are many categories.
+  - Reorder unordered categorical variables to make trends easier to see.
+- When visualizing the relationship between two categorical variables:
+  - Display the counts for each pairing of values (e.g., using `geom_count` or `geom_tile`)
+  - In general, put the categorical variable with the greater number of categories or the longer labels on the Y axis.
+- When visualizing the relationship between two continuous variables:
+  - Use a scatterplot with jittering or transparency to handle datasets with up to hundreds of points.
+  - Use `geom_bin2d` or `geom_hex` to bin values in two dimensions.
+  - Bin one or both of the continuous variables so that visualizations for continuous variables can be used.
+  - Use `cut_width` or `cut_number` to bin continuous values by value range or number of values respectively.
+- Omitting argument names for commonly-used functions makes code easier for experienced programmers to understand.
+  - The first two arguments to `ggplot` are the dataset and the mapping.
