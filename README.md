@@ -430,3 +430,41 @@ ggplot(data = <DATA>) +
 - Delimited file formats only store column names, not column types, so the latter have to be re-guessed when the file is re-read.
   - (Old) Saving data in R's custom binary format RDS will save type information.
   - (New) Saving data in the cross-language Feather format will also save type information, and this data can be read in multiple languages.
+
+## 12. Tidy Data
+
+### Objectives
+
+- Describe the three rules tabular data must obey to be considered "tidy", and the advantages of storing data this way.
+- Explain what *gathering* data means and use gather operations to tidy datasets.
+- Explain what *spreading* data means and use spread operations to tidy datasets.
+- Explain what *separating* data means and use separate operations to tidy datasets.
+- Explain what *uniting* data means and use unite operations to tidy datasets.
+- Describe two ways in which values can be missing from a dataset.
+- Explain how to *complete* a dataset and use completion operations to tidy datasets.
+- Explain why it can be useful to carry values forward and use this to tidy datasets.
+
+### Key Points
+
+- *Tidy data* obeys three rules:
+  - Each variable has its own column.
+  - Each observation has its own row.
+  - Each value has its own cell.
+- Tidy data is easier to process because:
+  - No subsidiary processing is required (e.g., to split names into personal and family names).
+  - Each column can be processed independently (e.g., there's no need to choose the type of processing based on a "type" field in another column).
+- To *gather* data means to take N columns whose names are actually values and transform them into 2 columns where the first column holds the former column names and the second holds the values.
+  - Use `gather(name, name, ..., key="key_name", value="value_name")` to transform the named columns into two columns with names `key_name` and `value_name`.
+- To *spread* data means to take two columns, the N values in the first of which identify the meanings of the values in the second, and create N+1 columns, one for each of teh distinct values in the first column.
+  - Use `spread(key=first, value=second) to spread the values in `second` according to the keys in `first`.
+- To *separate* data means to split one column into multiple values.
+  - Use `separate(name, into=c("first", "second", ...))` to separate the values in one column to create multiple new columns.
+- To *unite* data means to combine the values of two or more columns into a single column.
+  - Use `unite(new_name, first, second, ...)` to combine the named columns to create a column named `new_name`.
+  - Values will be combined with `_` unless `sep="#"` (or similar) is used (with `sep=""` to unite without a separator).
+- Use `convert=TRUE` with these functions to (try to) convert data types.
+- Values can be explicitly missing (the presence of an absence) or their entries can be missing entirely (the absence of a presence).
+- To *complete* a dataset means to fill in missing combinations of values.
+  - Use `complete(first, second, ...)` to fill in missing combinations of the values from the named columns.
+- Missing values sometimes indicate that the most recent value should be carried forward.
+  - Use `fill(first, second, ...)` to carry the most recent observation(s) forward in the named column(s).
