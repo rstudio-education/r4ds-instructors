@@ -378,3 +378,55 @@ ggplot(data = <DATA>) +
 - Use `print` with `n` to set the number of rows and `width` to set the number of character columns.
 - Use `name[["variable"]]` or `name$variable` to extract the column named `variable` from a tibble.
 - Use `name[[N]]` to extract column `N` (integer) from a tibble.
+
+## 11. Data Import
+
+### Objectives
+
+- Name six functions for reading tabular data and explain their use.
+- Read CSV data files with multiple header lines, comments, missing headers, and/or markers for missing data.
+- Explain how data reader functions determine whether they have extra and missing values, and how they handle them.
+- Name four functions used to parse individual values and explain their use.
+- Explain how to obtain a summary of parsing problems encountered by data reading functions.
+- Define *locale* and explain its purpose and use.
+- Define *encoding* and explain its purpose and use.
+- Explain how `readr` functions determine column types.
+- Set the data types of columns explicitly while reading data.
+- Explain how to write well-formatted tabular data.
+- Describe what information is lost when writing tibbles to delimited files and what formats can be used instead.
+
+### Key Points
+
+- Use the following functions to read tabular data in common formats:
+  - `read_csv`: comma-delimited files.
+  - `read_csv2`: semicolon-delimited files.
+  - `read_tsv`: tab-delimited files.
+  - `read_delim`: files using an arbitrary delimiter.
+  - `read_fwf`: files with fixed-width fields.
+  - `read_table`: read common fixed-width tabular formats with whitespace separators.
+- Use `skip=n` to skip the first N lines of a file.
+- Use  `comment="#"` (or something similar) to ignore lines starting with `#`.
+- Use `col_names=FALSE` to stop `read_csv` from interpreting the first row as column headers.
+- Use `col_names=c("first", "second", "third")` to specify column names by hand.
+- Use `na="."` (or something similar) to specify the value(s) used to mark missing data.
+- Data reader functions use the number of values in the first row to determine the number of columns.
+  - Extra values in subsequent rows are omitted.
+  - Missing values in subsequent rows are set to `NA`.
+- Use `parse_integer`, `parse_number`, `parse_logical`, and `parse_date` to parse strings containing integers, general numbers, Booleans, and dates.
+  - Use `na="."` (or similar) to specify the value(s) that should be interpreted as missing data.
+- Use `problems(name)` to access the `problems` attribute of the output of data reading functions.
+- A *locale* is a collection of linguistic and/or regional settings for information formats, such as Canadian English or Brazilian Portuguese.
+  - Use `locale(...)` to specify such things as the separator character used in long numbers.
+- An *encoding* is a specification of how characters are represented digitally, such as ASCII or UTF-8.
+  - Specify `encoding="name"` when parsing data to interpret the character data correctly.
+  - UTF-8 is now the most commonly-used character encoding scheme.
+- Data reading functions read the first 1000 rows of the dataset and use the heuristics embodied in `guess_parser` to guess the type of the column.
+- Use `col_types=cols(...)` to manually specify the types of the columns of a data file.
+  - Use `name = col_double()` to set the column's name to `name` and the type to `double`.
+  - Use `name = col_date()` to set the name to `name` and the type to `date`.
+- Use `write_csv` to write data in comma-separated format and `write_tsv` to write it in tab-separated format.
+  - Use `write_excel_csv` to write CSV with extra information so that it can immediately be loaded by Microsoft Excel.
+  - Use `na="marker"` to specify how `NA` should be shown in the output.
+- Delimited file formats only store column names, not column types, so the latter have to be re-guessed when the file is re-read.
+  - (Old) Saving data in R's custom binary format RDS will save type information.
+  - (New) Saving data in the cross-language Feather format will also save type information, and this data can be read in multiple languages.
