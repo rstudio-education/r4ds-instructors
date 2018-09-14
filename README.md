@@ -455,7 +455,7 @@ ggplot(data = <DATA>) +
   - Each column can be processed independently (e.g., there's no need to choose the type of processing based on a "type" field in another column).
 - To *gather* data means to take N columns whose names are actually values and transform them into 2 columns where the first column holds the former column names and the second holds the values.
   - Use `gather(name, name, ..., key="key_name", value="value_name")` to transform the named columns into two columns with names `key_name` and `value_name`.
-- To *spread* data means to take two columns, the N values in the first of which identify the meanings of the values in the second, and create N+1 columns, one for each of teh distinct values in the first column.
+- To *spread* data means to take two columns, the N values in the first of which identify the meanings of the values in the second, and create N+1 columns, one for each of the distinct values in the first column.
   - Use `spread(key=first, value=second) to spread the values in `second` according to the keys in `first`.
 - To *separate* data means to split one column into multiple values.
   - Use `separate(name, into=c("first", "second", ...))` to separate the values in one column to create multiple new columns.
@@ -468,3 +468,65 @@ ggplot(data = <DATA>) +
   - Use `complete(first, second, ...)` to fill in missing combinations of the values from the named columns.
 - Missing values sometimes indicate that the most recent value should be carried forward.
   - Use `fill(first, second, ...)` to carry the most recent observation(s) forward in the named column(s).
+
+## 13. Relational Data
+
+### Objectives
+
+- Define *relational data* and explain what *keys* are and how they are used when processing it.
+- Explain the difference between a *primary key* and a *foreign key*, and explain how to determine whether a key is actually a primary key.
+- Explain what a *surrogate key* is and why surrogate keys are sometimes needed.
+- Explain how relations are represented in relational data and describe three types of relations.
+- Define a *mutating join* and use mutating joins to combine information from two tables.
+- Define four kinds of joins and use each to combine information from two tables.
+- Explain what joins do if some keys are duplicated, and when this might occur.
+- Describe and use some common criteria for joins.
+- Define a *filtering join*, describe two types of filtering joins, and use them to combine information from two tables.
+- Describe the difference between how mutating joins and filtering joins behave in the presence of duplicated keys.
+- Describe three steps for identifying keys in tables that can be used in joins.
+- Describe and use three set operations on records.
+
+### Key Points
+
+- *Relational data* is made up of sets of tables that are related in some way.
+- A *key* is a variable or set of variables whose values uniquely identify observations in a table.
+  - Keys are used to connect observations in one table to observations in another.
+- A *primary key* uniquely identifies an observation in its own table.
+  - Use `count(name)` and `filter(n > 1)` to identify multiple occurrences of what is supposed to be a primary key.
+- A *foreign key* uniquely identifies an observation in some other table, and is used to connect information between those tables.
+- A *surrogate key* is an arbitrary identifier associated with an observation (such as a row number) that has no real-world meaning.
+  - Surrogate keys are sometimes added to data when the data itself has no valid primary keys.
+- Relations are represented by matching primary keys in one table to foreign keys in another.  Relations can be:
+  - *One-to-one* (or 1-1), meaning there is exactly one matching value in each table.
+  - *One-to-many* (or 1-N), meaning that each value in one table may have any number of matching values in another.
+  - *Many-to-many* (or N-N), meaning that there may be many matching values in each table.
+- A *mutating join* updates one table with corresponding information from another table.
+- An *inner join* combines observations from two tables when their keys are equal, discarding any unmatched rows.
+  - Use `inner_join(left, right, by="name")` to join tables `left` and `right` on equal values of the column `name`.
+- A *left outer join* (or simply *left join*) combines observations when keys are equal, keeping rows from the left table even if there are no corresponding values from the right table.
+  - Missing values from the right table are assigned `NA` in the result.
+  - Use `left_join` with arguments as above.
+- A *right outer join* (or simply *right join*) does the same, but keeps rows from the right table even when rows from the left are missing.
+  - Use `right_join` with arguments as above.
+- A *full outer join* (or simply *full join*) keeps all rows from both table, filling in for gaps in either.
+  - Use `full_join` with arguments as above.
+- If a key is duplicated in one or both tables, a join will produce all combinations of records with that key.
+  - This often arises when a key is a primary key in one table and a foreign key in another.
+  - If keys are duplicated in both tables, it may be a sign that the data is corrupt or that the supposed key actually isn't one.
+- A *natural join* combines tables using equal values for all columns with identical names.
+  - Use `by=NULL` in a join function to force a natural join.
+- Use `by=c("name1", "name2", ...)` to join on equal values of named columns.
+- Use `by=c("a" = "b", "c" = "d", ...)` to join on columns with different names.
+- Use `suffix=("name", "name")` to override the default `.x`, `.y` suffixes used for name collisions.
+- A *filtering join* is one that keeps (or discards) observations from one table based on whether they match (or do not match) observations in a second table.
+  - Use `semi_join(left, right)` to keep rows in `left` that have matches in `right`.
+  - Use `anti_join(left, right)` to keep rows in `left` that do *not* have matches in `right`.
+- Because they only keep or discard rows, filtering joins never create duplicate entries, while mutating joins can if keys are duplicated.
+- Three steps for identifying keys in tables that can be used in joins are:
+  - Identify the variable or variables that form the primary key for each table based on an understanding of the data.
+  - Check that each table's primary key has no missing values.
+  - Check that possible foreign keys match primary keys in other tables (e.g., by using `anti_join` to look for missing matches).
+- Three set operations that work on entire records are:
+  - `union(left, right)`: returns unique observations from either or both table.
+  - `intersect(left, right)`: returns unique observations that are in both tables.
+  - `setdiff(left, right)`: returns observations that are in one of the tables but not both.
