@@ -616,3 +616,45 @@ ggplot(data = <DATA>) +
   - Assigning several old levels to a single new level combines entries.
   - Use `fct_collapse(factors, new_name = c("old_name_1", "old_name_2"), ...)` to collapse many levels at once.
 - Use `fct_lump(factor, n=N)` to combine the smallest factors, leaving `N` groups.
+
+## 16. Dates and Times
+
+### Objectives
+
+- Describe three types of data that refer to an instant in time.
+- Get the current date and time.
+- Describe and use three ways to create a date-time.
+- Convert dates to date-times and date-times to dates.
+- Describe and use eight accessor functions to extract components of dates and date-times.
+- Describe and use three functions for rounding dates.
+- Explain how to modify components of dates and date-times.
+- Explain an idiom for exploring patterns in the lower-order components of date-times.
+- Explain how the difference between two moments in time is represented in base R and when using `lubridate`.
+- Explain the difference between a difftime, a *period*, and an *interval*.
+- Determine your current timezone.
+
+### Key Points
+
+- Instants in time are described by *date*, *time*, and *date-time*.
+- Use `today` to get the current date and `now` to get the current date-time.
+- A date-time can be created from a string, from individual date and time components, or from an existing date-time.
+  - Use `lubridate` functions such as `ymd` or `dmy` to parse year-month-day dates.
+  - Use functions such as `ymd_hms` to parse full date-times.
+  - Supplying a timezone with `tz="XYZ"` forces the creation of a date-time instead of just a date.
+  - Use `make_date` or `make_datetime` to construct a date or date-time from numeric components.
+- Use `as_datetime` to convert a date to a date-time and `as_date` to convert a date-time to a date.
+- Use the following accessor functions to extract components from dates and date-times:
+  - `year` and `month`
+  - `yday` (day of the year), `mday` (day of the month), and `wday` (day of the week)
+  - `hour`, `minute`, and `second`
+- Use `floor_date`, `round_date`, and `ceiling_date` to round dates down, to nearest, or up to a specified unit.
+- Use an accessor function on the left side of assignment to modify a portion of a date or date-time in place.
+  - E.g., use `year(x) <- 2018` to set the year of a date or date-time to 2018.
+- Use `update(existing, name=value, ...)` to create a new date-time with modified values.
+- Use `update` to set the higher-order components of date-times to a constant in order to explore the variation in the lower-order components.
+- The difference between two moments is represented as a *difftime* object.
+  - Use `as.duration(difftime)` to convert to a `lubridate` `duration`, which always uses seconds to represent differences in times.
+  - Use `dyears`, `dseconds`, etc. to construct differences explicitly.
+- A *difftime* represents an absolute difference in times (in seconds), while a *period* takes human factors into account (such as daylight savings time).
+- An *interval* is a duration with a starting point, which makes it precise enough that its exact length can be determined.
+- Use `Sys.timezone()` to determine your current timezone.
