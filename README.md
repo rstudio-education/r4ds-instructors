@@ -590,3 +590,29 @@ ggplot(data = <DATA>) +
 - Use `regex` explicitly to construct a regular expression and control options such as multi-line matches and embedded comments.
 - Use `apropos` to find objects in the global environment whose names match a regular expression.
 - Use `dir` to find objects in the filesystem whose names match a regular expression.
+
+## 15. Factors
+
+### Objectives
+
+- Define *factor* and explain the purpose of factors in R.
+- Create and (re-)order factors.
+- Determine the valid levels of a factor.
+- Rename the levels of a factor.
+
+### Key Points
+
+- A *factor* is a variable that can take on one of a fixed set of values.
+  - Factors are ordered, but the order is not necessarily alphabetical.
+- Use `factor(values, levels)` to create a vector of factors by matching strings in `values` to level names in `levels`.
+  - Values that don't match level names are converted to `NA`.
+- The idiom `factor(values, unique(values))` orders the factors according to their first appearance in the data.
+  - Use `fct_reorder(factor, values)` to reorder a factor according to a set of numeric values.
+- Use `levels(factor)` to recover the valid levels of a factor.
+- Use `fct_relevel(factors, "levels")` to move the named levels to the front of the list of factors (e.g., for display purposes).
+- Use `fct_infreq` to reorder factors by frequency.
+- Use `fct_rev` to reverse the order of factors.
+- Use `fct_recode(factor, "new_name_1" = "old_name_1", "new_name_2" = "old_name_2", ...)` to rename some or all factors.
+  - Assigning several old levels to a single new level combines entries.
+  - Use `fct_collapse(factors, new_name = c("old_name_1", "old_name_2"), ...)` to collapse many levels at once.
+- Use `fct_lump(factor, n=N)` to combine the smallest factors, leaving `N` groups.
