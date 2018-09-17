@@ -676,3 +676,54 @@ ggplot(data = <DATA>) +
 - `%T>%` ("tee") returns its left side rather than its right.
 - `%$%` unpacks the variables in a `data.frame` (which is useful when calling functions in base R that don't rely on `data.frame`s).
 - `%<>%` assigns the result back to the starting variable.
+
+## 19. Functions (and Control Flow)
+
+### Objectives
+
+- Explain the benefits of creating functions.
+- Describe three steps in the creation of a function.
+- Define functions of zero or more arguments.
+- Describe three rules that function names should follow.
+- Describe the difference between data and details in function arguments.
+- Define *conditional statement* and write conditional statements with multiple branches and a default branch.
+- Explain what a *short-circuit operator* is and write conditions using these operators.
+- Define *precondition* and implement preconditions in functions.
+- Write functions that take (and pass on) a varying number of arguments.
+- Describe and use two ways to return values from functions.
+- Implement pipeable functions that perform transformations or have side effects.
+
+### Key Point
+
+- Create functions to elminate duplicated code, make programs more readable, and simplify maintenance and evolution.
+- When creating a function, select a name, decide on its arguments, and write its body.
+- Function names should:
+  1. Prefer verbs (actions) to nouns (things).
+  2. Use full words and consistent typography.
+  3. Be consistent with other functions in the same package or application.
+- Arguments to functions are (broadly speaking) either:
+  - Data to be operated on (come first).
+  - Details controlling how the function operates (come last, and should have default values).
+  - When overriding the value of a default, use the full name of the argument.
+- A *conditional statement* may or may not execute code depending on whether a condition is true or false.
+  - Each conditional statement must have one `if`, zero or more `else if`, and zero or one `else` in that order.
+  - Each branch except the `else` must have a logical condition that determines whether it is selected.
+  - Branch conditions are tested in order, and only the code associated with the first branch whose condition is true is executed.
+  - If no condition is true, and an `else` is present, the code in the `else` branch is executed.
+- Conditions must be `TRUE` or `FALSE`, not vectors or `NA`s.
+- A *short-circuit operator* stops evaluating terms as soon as it knows whether the overall value is `TRUE` or `FALSE`.
+  - "and", written `&&`, stops as soon as a term is `FALSE`.
+  - "or", written `||`, stops as soon as a term is `TRUE`.
+  - Use the functions `any`, `all`, and `identical` to collapse vectors into single values for testing.
+- Always indent the bodies of conditionals and functions (preferably by two spaces) and obey style rules for placement of curly braces.
+- A *precondition* is something that must be true of a function's inputs in order for the function to work correctly.
+  - Use `if` and `stop` to check that inputs are sensible before processing it, and generate a meaningful error message when it's not.
+  - Or use `stopifnot` to check that one or more conditions are true (without generating a custom error message).
+- Use `...` (three dots) as a placeholder for zero or more arguments, which can then be passed into other functions.
+  - Use `list(...)` to convert the actual arguments to a list for processing.
+- A function in R returns either:
+  - An explicit value when `return(value)` is called.
+  - The value of the last expression evaluated if no explicit `return` was executed.
+- To make a function pipeable:
+  - For a *transformation*, take the data to be transformed as the first argument and return a modified object.
+  - For a *side effect*, perform the operation (e.g., save to a file) and use `invisible(value)` to return the value without printing it.
