@@ -530,3 +530,63 @@ ggplot(data = <DATA>) +
   - `union(left, right)`: returns unique observations from either or both table.
   - `intersect(left, right)`: returns unique observations that are in both tables.
   - `setdiff(left, right)`: returns observations that are in one of the tables but not both.
+
+## 14. Strings
+
+### Objectives
+
+- Write character strings in R, including ones that contain special characters.
+- Write multiple strings to the terminal, respecting escaped characters.
+- Use functions from the `stringr` package to perform basic operations on strings.
+- Explain what a *regular expression* is and what kinds of patterns they can match.
+- Describe two functions that implement regular expressions and use them to match simple patterns against text.
+- Describe nine patterns provided by regular expressions.
+- Capture subsections of matched text in regular expressions and re-match captured text within a pattern.
+- Detect and extract matches between a pattern and the strings in a vector.
+- Replace substrings that match regular expressions.
+- Split strings based on regular expression matches.
+- Locate substrings that match regular expressions.
+- Control matching options in regular expressions.
+- Find objects in the global environment whose names match a regular expression.
+- Find files and directories whose names match a regular expression.
+
+### Key Points
+
+- Character strings in R are enclosed in matching single or double quotes.
+- Use backslash to escape special characters such as `\"`, `\n`, and `\\`.
+- Use `writeLines` to display a string or a vector of strings with special characters interpreted.
+- Use `str_length` to get a string's length.
+- Use `str_c` to concatenate strings.
+- Use `str_sub` to extract or replace substrings.
+- Use `str_to_lower`, `str_to_upper`, and `str_to_title` to change the case of strings.
+- Use `str_sort` to sort a vector of strings and `str_order` to get the 
+- Use `str_order` to get the ordered indices of the strings in a vector.
+- Use `str_pad` to pad a string to fit a specified width and `str_trim` to trim it to fit that width.
+- A *regular expression* is a pattern that matches text.
+  - Regular expressions are written as text using punctuation and other characters to express choice, repetition, and other operations.
+  - Regular expressions can express patterns that have fixed nesting, but not patterns that have unlimited nesting (such as nested parenthesization).
+- Use `str_view(text, pattern)` to find the first match of `pattern` to `text` and `str_view_all` to view all matches.
+- Nine patterns used in regular expressions are:
+  - `.` matches any single character.
+  - `\` escapes the character that follows it.
+  - `^` and `$` match the beginning and end of the string respectively (without consuming any characters).
+  - Use `\d` to match digits and `\s` to match whitespace.
+  - Use `[abc]` to match any single character in a set and `[^abc]` to match any character *not* in a set.
+  - Use `left|right` to match either of two patterns.
+  - Use `{M,N}` to repeat a pattern M to N times.
+  - Use `?` to signal that a pattern is optional (i.e., repeated zero or one times), `*` to repeat a pattern zero or more times, and `+` to repeat a pattern at least once.
+  - Use parentheses `(...)` for grouping, just as in mathematics.
+- Every set of parentheses in a regular expression creates a numbered *capture group*.
+  - Use `\1`, `\2`, etc. to refer to capture groups within a pattern in order to match the same actual text two or more times.
+- Use `str_detect(strings, pattern)` to create a logical vector showing where a pattern does or doesn't match.
+- Use `str_subset(strings, pattern)` to select the subset of strings that match a pattern and `str_count` to count the number of matches.
+- Use `str_extract(strings, pattern)` to extract the first match for the pattern in each string.
+- Use `str_extract_all(strings, pattern)` to extract all matches for the pattern in each string.
+- Use `str_match(string, pattern)` to extract parenthesized sub-matches for a pattern.
+- Use `tidyr::extract` to extract parenthesized sub-matches from a tibble into new columns.
+- Use `str_replace` or `str_replace_all` to replace substrings that match regular expressions.
+- Use `str_split` to split a string based on regular expression matches.
+- Use `str_locate` and `str_locate_all` to find the starting and ending positions of substrings that match regular expressions.
+- Use `regex` explicitly to construct a regular expression and control options such as multi-line matches and embedded comments.
+- Use `apropos` to find objects in the global environment whose names match a regular expression.
+- Use `dir` to find objects in the filesystem whose names match a regular expression.
