@@ -658,3 +658,21 @@ ggplot(data = <DATA>) +
 - A *difftime* represents an absolute difference in times (in seconds), while a *period* takes human factors into account (such as daylight savings time).
 - An *interval* is a duration with a starting point, which makes it precise enough that its exact length can be determined.
 - Use `Sys.timezone()` to determine your current timezone.
+
+## 18. Pipes
+
+### Objectives
+
+- Describe the pros and cons of four ways to write successive operations on data.
+- Explain the use of `%T>%`, `%$%`, and `%<>%`.
+
+### Key Points
+
+- Four ways to write successive operations on data are:
+  - Save each intermediate step as a new object: a lot of typing with many opportunities for transposition mistakes.
+  - Overwrite the original object many times: loss of originals makes debugging difficult, and repetition of a single makes reading difficult.
+  - Compose functions: unnatural reading order and parameters widely separated from function names.
+  - Use the pipe `%>%`: simple to read *if* the transformations are sequential and applied to a single main stream of data.
+- `%T>%` ("tee") returns its left side rather than its right.
+- `%$%` unpacks the variables in a `data.frame` (which is useful when calling functions in base R that don't rely on `data.frame`s).
+- `%<>%` assigns the result back to the starting variable.
