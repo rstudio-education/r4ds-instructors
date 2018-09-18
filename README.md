@@ -36,19 +36,21 @@ him for a deeper dive into more advanced R programming.
 Derived constraints:
 
 - Learners know what variables are, how to index a list, how loops and
-  conditionals work, and grasp the basics of programming language
-  syntax, such as how to write a string or a list (both).
-- Learners only have a shaky grasp of variable scope and the call
-  stack, and will not understand closures or higher-order functions
-  without detailed exposition (Nethira).
-- Learners know very basic statistics (mean, standard deviation,
-  linear regression), but do not understand what a *p*-value is
-  or why an observation can only be used once during hypothesis
-  confirmation (Hannu).
-- Learners have 20-40 hours to work through this material. They
-  may be able to ask more advanced friends or colleagues for help,
-  but will primarily be learning on their own and by searching
-  online (both).
+  conditionals work, and grasp the basics of programming language syntax, such
+  as how to write a string or a list (both).
+- Learners only have a shaky grasp of variable scope and the call stack, and
+  will not understand closures or higher-order functions without detailed
+  exposition (Nethira).
+- Learners know very basic statistics (mean, standard deviation, linear
+  regression), but do not understand what a *p*-value is or why an observation
+  can only be used once during hypothesis confirmation (Hannu).
+- Learners have 20-40 hours to work through this material. They may be able to
+  ask more advanced friends or colleagues for help, but will primarily be
+  learning on their own and by searching online (both).
+
+Note: definitions of terms are marked with `_single underscores_`, while other
+form of emphasis uses `*single asterisks*`.  This makes it easy to extract
+definitions for glossary construction.
 
 ## 1. Introduction
 
@@ -255,7 +257,7 @@ ggplot(data = <DATA>) +
 
 ## 7. Exploratory Data Analysis
 
-### oObjectives
+### Objectives
 
 - Describe the steps in exploratory data analysis (EDA).
 - Describe two types of questions that are useful to ask during EDA.
@@ -278,17 +280,17 @@ ggplot(data = <DATA>) +
 - Two questions that are always useful to ask during EDA are:
   - What type of variation occurs within my variables?
   - What type of covariation occurs between my variables?
-- A *variable* is something that can be measured.
-- A *value* is the state of a variable when measured.
-- An *observation* is a set of measurements made under similar conditions, and may contain several values (each associated with a different variable).
-- *Variation* is the tendency of values to differ from measurement to measurement.
-- *Tidy data* is a set of values, each of which is associated with exactly one variable and observation.
+- A _variable_ is something that can be measured.
+- A _value_ is the state of a variable when measured.
+- An _observation_ is a set of measurements made under similar conditions, and may contain several values (each associated with a different variable).
+- _Variation_ is the tendency of values to differ from measurement to measurement.
+- _Tidy data_ is a set of values, each of which is associated with exactly one variable and observation.
   Tidy data is usually displayed in tabular form: each observation (or record) is a row, while each variable is a column with a name and a type.
-- A *categorical variable* is one that takes on only one of a small set of values.
+- A _categorical variable_ is one that takes on only one of a small set of values.
   - Categorical variables are best represented using factors or character strings.
   - The distribution of a categorical variable is best visualized using a bar chart (created using `geom_bar`).
   - `dplyr::count(name)` counts the number of occurrences of each value of a categorical variable.
-- A *continuous variable* is one that takes on any of an infinite set of ordered values.
+- A _continuous variable_ is one that takes on any of an infinite set of ordered values.
   - Categorical variables are best represented using numbers or date-times.
   - The distribution of a categorical variable is best visualized using a histogram.
   - `dplyr::count(ggplot2::cut_width(name, width))` divides occurrences into bins and counts the number of occurrences in each bin.
@@ -311,10 +313,10 @@ ggplot(data = <DATA>) +
 - If outliers are present, repeat each analysis with and without them.
   - If there are only a few, and dropping them doesn't affect results, use `mutate` and `ifelse` to replace them with `NA`.
   - If there are many, or dropping them changes results, account for them in analysis and reporting.
-- *Covariation* is the tendency for some variables to vary in related ways.
+- _Covariation_ is the tendency for some variables to vary in related ways.
 - When visualizing the relationship between continuous and categorical variables:
   - Displaying raw counts can be misleading if the number of items in different categories varies widely.
-  - Displaying *densities* (i.e., counts standardized so that the area of each curve is the same) can be more informative.
+  - Displaying _densities_ (i.e., counts standardized so that the area of each curve is the same) can be more informative.
   - Boxplots show less of the raw data, but are easier to interpret when there are many categories.
   - Reorder unordered categorical variables to make trends easier to see.
 - When visualizing the relationship between two categorical variables:
@@ -341,10 +343,10 @@ ggplot(data = <DATA>) +
 ### Key Points
 
 - Analysts should save scripts rather than environments because it is much easier to reconstruct an environment from a script than to reconstruct a script from an environment.
-- The *working directory* is the directory where R looks for and saves files by default, and is displayed by calling `getwd()`.
+- The _working directory_ is the directory where R looks for and saves files by default, and is displayed by calling `getwd()`.
 - Setting the working directory from within a script with `setwd` makes reproducibility more difficult because that directory may not exist on some other (person's) machine.
-- An *absolute path* specifies a single location starting from the top of the filesystem.
-- A *relative path* specifies a location starting from the current directory, and may identify different locations depending on where it is used.
+- An _absolute path_ specifies a single location starting from the top of the filesystem.
+- A _relative path_ specifies a location starting from the current directory, and may identify different locations depending on where it is used.
 - The symbol `~` refers to the user's home directory on macOS and Linux, and to the user's `Documents` directory on Windows.
 - An RStudio project is a directory that contains the scripts and other files involved in an analysis.
 - Each RStudio project contains a `.Rproj` file with information about the project.
@@ -373,7 +375,7 @@ ggplot(data = <DATA>) +
 - Tibbles can be created from `data.frame`s using `as_tibble` or from scratch using `tibble`.
   - Use `is_tibble` to determine if something is a tibble or not.
   - Use `class` to determine the classes of something.
-- A *non-syntactic name* is one which is not a valid R variable name.
+- A _non-syntactic name_ is one which is not a valid R variable name.
 - To create a non-syntactic column name, enclose the name in back-quotes.
 - Use `print` with `n` to set the number of rows and `width` to set the number of character columns.
 - Use `name[["variable"]]` or `name$variable` to extract the column named `variable` from a tibble.
@@ -415,9 +417,9 @@ ggplot(data = <DATA>) +
 - Use `parse_integer`, `parse_number`, `parse_logical`, and `parse_date` to parse strings containing integers, general numbers, Booleans, and dates.
   - Use `na="."` (or similar) to specify the value(s) that should be interpreted as missing data.
 - Use `problems(name)` to access the `problems` attribute of the output of data reading functions.
-- A *locale* is a collection of linguistic and/or regional settings for information formats, such as Canadian English or Brazilian Portuguese.
+- A _locale_ is a collection of linguistic and/or regional settings for information formats, such as Canadian English or Brazilian Portuguese.
   - Use `locale(...)` to specify such things as the separator character used in long numbers.
-- An *encoding* is a specification of how characters are represented digitally, such as ASCII or UTF-8.
+- An _encoding_ is a specification of how characters are represented digitally, such as ASCII or UTF-8.
   - Specify `encoding="name"` when parsing data to interpret the character data correctly.
   - UTF-8 is now the most commonly-used character encoding scheme.
 - Data reading functions read the first 1000 rows of the dataset and use the heuristics embodied in `guess_parser` to guess the type of the column.
@@ -446,25 +448,25 @@ ggplot(data = <DATA>) +
 
 ### Key Points
 
-- *Tidy data* obeys three rules:
+- Tidy data obeys three rules:
   - Each variable has its own column.
   - Each observation has its own row.
   - Each value has its own cell.
 - Tidy data is easier to process because:
   - No subsidiary processing is required (e.g., to split names into personal and family names).
   - Each column can be processed independently (e.g., there's no need to choose the type of processing based on a "type" field in another column).
-- To *gather* data means to take N columns whose names are actually values and transform them into 2 columns where the first column holds the former column names and the second holds the values.
+- To _gather_ data means to take N columns whose names are actually values and transform them into 2 columns where the first column holds the former column names and the second holds the values.
   - Use `gather(name, name, ..., key="key_name", value="value_name")` to transform the named columns into two columns with names `key_name` and `value_name`.
-- To *spread* data means to take two columns, the N values in the first of which identify the meanings of the values in the second, and create N+1 columns, one for each of the distinct values in the first column.
+- To _spread_ data means to take two columns, the N values in the first of which identify the meanings of the values in the second, and create N+1 columns, one for each of the distinct values in the first column.
   - Use `spread(key=first, value=second) to spread the values in `second` according to the keys in `first`.
-- To *separate* data means to split one column into multiple values.
+- To _separate_ data means to split one column into multiple values.
   - Use `separate(name, into=c("first", "second", ...))` to separate the values in one column to create multiple new columns.
-- To *unite* data means to combine the values of two or more columns into a single column.
+- To _unite_ data means to combine the values of two or more columns into a single column.
   - Use `unite(new_name, first, second, ...)` to combine the named columns to create a column named `new_name`.
   - Values will be combined with `_` unless `sep="#"` (or similar) is used (with `sep=""` to unite without a separator).
 - Use `convert=TRUE` with these functions to (try to) convert data types.
 - Values can be explicitly missing (the presence of an absence) or their entries can be missing entirely (the absence of a presence).
-- To *complete* a dataset means to fill in missing combinations of values.
+- To _complete_ a dataset means to fill in missing combinations of values.
   - Use `complete(first, second, ...)` to fill in missing combinations of the values from the named columns.
 - Missing values sometimes indicate that the most recent value should be carried forward.
   - Use `fill(first, second, ...)` to carry the most recent observation(s) forward in the named column(s).
@@ -488,37 +490,37 @@ ggplot(data = <DATA>) +
 
 ### Key Points
 
-- *Relational data* is made up of sets of tables that are related in some way.
-- A *key* is a variable or set of variables whose values uniquely identify observations in a table.
+- _Relational data_ is made up of sets of tables that are related in some way.
+- A _key_ is a variable or set of variables whose values uniquely identify observations in a table.
   - Keys are used to connect observations in one table to observations in another.
-- A *primary key* uniquely identifies an observation in its own table.
+- A _primary key_ uniquely identifies an observation in its own table.
   - Use `count(name)` and `filter(n > 1)` to identify multiple occurrences of what is supposed to be a primary key.
-- A *foreign key* uniquely identifies an observation in some other table, and is used to connect information between those tables.
-- A *surrogate key* is an arbitrary identifier associated with an observation (such as a row number) that has no real-world meaning.
+- A _foreign key_ uniquely identifies an observation in some other table, and is used to connect information between those tables.
+- A _surrogate key_ is an arbitrary identifier associated with an observation (such as a row number) that has no real-world meaning.
   - Surrogate keys are sometimes added to data when the data itself has no valid primary keys.
 - Relations are represented by matching primary keys in one table to foreign keys in another.  Relations can be:
-  - *One-to-one* (or 1-1), meaning there is exactly one matching value in each table.
-  - *One-to-many* (or 1-N), meaning that each value in one table may have any number of matching values in another.
-  - *Many-to-many* (or N-N), meaning that there may be many matching values in each table.
-- A *mutating join* updates one table with corresponding information from another table.
-- An *inner join* combines observations from two tables when their keys are equal, discarding any unmatched rows.
+  - _One-to-one_ (or 1-1), meaning there is exactly one matching value in each table.
+  - _One-to-many_ (or 1-N), meaning that each value in one table may have any number of matching values in another.
+  - _Many-to-many_ (or N-N), meaning that there may be many matching values in each table.
+- A _mutating join_ updates one table with corresponding information from another table.
+- An _inner join_ combines observations from two tables when their keys are equal, discarding any unmatched rows.
   - Use `inner_join(left, right, by="name")` to join tables `left` and `right` on equal values of the column `name`.
-- A *left outer join* (or simply *left join*) combines observations when keys are equal, keeping rows from the left table even if there are no corresponding values from the right table.
+- A _left outer join_ (or simply _left join_) combines observations when keys are equal, keeping rows from the left table even if there are no corresponding values from the right table.
   - Missing values from the right table are assigned `NA` in the result.
   - Use `left_join` with arguments as above.
-- A *right outer join* (or simply *right join*) does the same, but keeps rows from the right table even when rows from the left are missing.
+- A _right outer join_ (or simply _right join_) does the same, but keeps rows from the right table even when rows from the left are missing.
   - Use `right_join` with arguments as above.
-- A *full outer join* (or simply *full join*) keeps all rows from both table, filling in for gaps in either.
+- A _full outer join_ (or simply _full join_) keeps all rows from both table, filling in for gaps in either.
   - Use `full_join` with arguments as above.
 - If a key is duplicated in one or both tables, a join will produce all combinations of records with that key.
   - This often arises when a key is a primary key in one table and a foreign key in another.
   - If keys are duplicated in both tables, it may be a sign that the data is corrupt or that the supposed key actually isn't one.
-- A *natural join* combines tables using equal values for all columns with identical names.
+- A _natural join_ combines tables using equal values for all columns with identical names.
   - Use `by=NULL` in a join function to force a natural join.
 - Use `by=c("name1", "name2", ...)` to join on equal values of named columns.
 - Use `by=c("a" = "b", "c" = "d", ...)` to join on columns with different names.
 - Use `suffix=("name", "name")` to override the default `.x`, `.y` suffixes used for name collisions.
-- A *filtering join* is one that keeps (or discards) observations from one table based on whether they match (or do not match) observations in a second table.
+- A _filtering join_ is one that keeps (or discards) observations from one table based on whether they match (or do not match) observations in a second table.
   - Use `semi_join(left, right)` to keep rows in `left` that have matches in `right`.
   - Use `anti_join(left, right)` to keep rows in `left` that do *not* have matches in `right`.
 - Because they only keep or discard rows, filtering joins never create duplicate entries, while mutating joins can if keys are duplicated.
@@ -562,7 +564,7 @@ ggplot(data = <DATA>) +
 - Use `str_sort` to sort a vector of strings and `str_order` to get the 
 - Use `str_order` to get the ordered indices of the strings in a vector.
 - Use `str_pad` to pad a string to fit a specified width and `str_trim` to trim it to fit that width.
-- A *regular expression* is a pattern that matches text.
+- A _regular expression_ is a pattern that matches text.
   - Regular expressions are written as text using punctuation and other characters to express choice, repetition, and other operations.
   - Regular expressions can express patterns that have fixed nesting, but not patterns that have unlimited nesting (such as nested parenthesization).
 - Use `str_view(text, pattern)` to find the first match of `pattern` to `text` and `str_view_all` to view all matches.
@@ -576,7 +578,7 @@ ggplot(data = <DATA>) +
   - Use `{M,N}` to repeat a pattern M to N times.
   - Use `?` to signal that a pattern is optional (i.e., repeated zero or one times), `*` to repeat a pattern zero or more times, and `+` to repeat a pattern at least once.
   - Use parentheses `(...)` for grouping, just as in mathematics.
-- Every set of parentheses in a regular expression creates a numbered *capture group*.
+- Every set of parentheses in a regular expression creates a numbered _capture group_.
   - Use `\1`, `\2`, etc. to refer to capture groups within a pattern in order to match the same actual text two or more times.
 - Use `str_detect(strings, pattern)` to create a logical vector showing where a pattern does or doesn't match.
 - Use `str_subset(strings, pattern)` to select the subset of strings that match a pattern and `str_count` to count the number of matches.
@@ -602,7 +604,7 @@ ggplot(data = <DATA>) +
 
 ### Key Points
 
-- A *factor* is a variable that can take on one of a fixed set of values.
+- A _factor_ is a variable that can take on one of a fixed set of values.
   - Factors are ordered, but the order is not necessarily alphabetical.
 - Use `factor(values, levels)` to create a vector of factors by matching strings in `values` to level names in `levels`.
   - Values that don't match level names are converted to `NA`.
@@ -635,7 +637,7 @@ ggplot(data = <DATA>) +
 
 ### Key Points
 
-- Instants in time are described by *date*, *time*, and *date-time*.
+- Instants in time are described by _date_, _time_, and _date-time_.
 - Use `today` to get the current date and `now` to get the current date-time.
 - A date-time can be created from a string, from individual date and time components, or from an existing date-time.
   - Use `lubridate` functions such as `ymd` or `dmy` to parse year-month-day dates.
@@ -652,11 +654,11 @@ ggplot(data = <DATA>) +
   - E.g., use `year(x) <- 2018` to set the year of a date or date-time to 2018.
 - Use `update(existing, name=value, ...)` to create a new date-time with modified values.
 - Use `update` to set the higher-order components of date-times to a constant in order to explore the variation in the lower-order components.
-- The difference between two moments is represented as a *difftime* object.
+- A _difftime_ represents the absolute difference between two moments in time (in seconds).
   - Use `as.duration(difftime)` to convert to a `lubridate` `duration`, which always uses seconds to represent differences in times.
   - Use `dyears`, `dseconds`, etc. to construct differences explicitly.
-- A *difftime* represents an absolute difference in times (in seconds), while a *period* takes human factors into account (such as daylight savings time).
-- An *interval* is a duration with a starting point, which makes it precise enough that its exact length can be determined.
+- A _period_ represents the difference between two times taking human factors into account (such as daylight savings time).
+- An _interval_ is a duration with a starting point, which makes it precise enough that its exact length can be determined.
 - Use `Sys.timezone()` to determine your current timezone.
 
 ## 18. Pipes
@@ -705,18 +707,18 @@ ggplot(data = <DATA>) +
   - Data to be operated on (come first).
   - Details controlling how the function operates (come last, and should have default values).
   - When overriding the value of a default, use the full name of the argument.
-- A *conditional statement* may or may not execute code depending on whether a condition is true or false.
+- A _conditional statement_ may or may not execute code depending on whether a condition is true or false.
   - Each conditional statement must have one `if`, zero or more `else if`, and zero or one `else` in that order.
   - Each branch except the `else` must have a logical condition that determines whether it is selected.
   - Branch conditions are tested in order, and only the code associated with the first branch whose condition is true is executed.
   - If no condition is true, and an `else` is present, the code in the `else` branch is executed.
 - Conditions must be `TRUE` or `FALSE`, not vectors or `NA`s.
-- A *short-circuit operator* stops evaluating terms as soon as it knows whether the overall value is `TRUE` or `FALSE`.
+- A _short-circuit operator_ stops evaluating terms as soon as it knows whether the overall value is `TRUE` or `FALSE`.
   - "and", written `&&`, stops as soon as a term is `FALSE`.
   - "or", written `||`, stops as soon as a term is `TRUE`.
   - Use the functions `any`, `all`, and `identical` to collapse vectors into single values for testing.
 - Always indent the bodies of conditionals and functions (preferably by two spaces) and obey style rules for placement of curly braces.
-- A *precondition* is something that must be true of a function's inputs in order for the function to work correctly.
+- A _precondition_ is something that must be true of a function's inputs in order for the function to work correctly.
   - Use `if` and `stop` to check that inputs are sensible before processing it, and generate a meaningful error message when it's not.
   - Or use `stopifnot` to check that one or more conditions are true (without generating a custom error message).
 - Use `...` (three dots) as a placeholder for zero or more arguments, which can then be passed into other functions.
@@ -725,5 +727,5 @@ ggplot(data = <DATA>) +
   - An explicit value when `return(value)` is called.
   - The value of the last expression evaluated if no explicit `return` was executed.
 - To make a function pipeable:
-  - For a *transformation*, take the data to be transformed as the first argument and return a modified object.
-  - For a *side effect*, perform the operation (e.g., save to a file) and use `invisible(value)` to return the value without printing it.
+  - For a transformation, take the data to be transformed as the first argument and return a modified object.
+  - For a side effect, perform the operation (e.g., save to a file) and use `invisible(value)` to return the value without printing it.
