@@ -729,3 +729,80 @@ ggplot(data = <DATA>) +
 - To make a function pipeable:
   - For a transformation, take the data to be transformed as the first argument and return a modified object.
   - For a side effect, perform the operation (e.g., save to a file) and use `invisible(value)` to return the value without printing it.
+
+## 20. Vectors
+
+### Objectives
+
+- Define *atomic vector* and *list*, explain the differences between them, and give examples of each.
+- Explain what `NULL` is used for and how it differs from `NA`.
+- Determine the type and length of an arbitrary value.
+- Describe the values that logical vectors can contain and how they are usually constructed.
+- Describe the values that integer and double vectors can contain and the special values that each type can contain.
+- Describe the values that character vectors can contain.
+- Explain the difference between *explicit coercion* and *implicit coercion* and use the former to convert values from one type to another.
+- Explain the rule used to determine the type of a vector explicitly constructed out of values of different types.
+- Define *recycling* and correctly identify and interpret uses of it.
+- Recycle values explicitly.
+- Give vector elements names and explain when and why this is useful.
+- Describe six ways to subset a vector.
+- Explain the difference between single `[...]` and double `[[...]]`
+- Create and inspect lists.
+- Subset lists.
+- Define *attribute* and *augmented vector*.
+- Describe three ways vector attributes are used in R.
+- Explain how factors are implemented using augmented vectors.
+- Explain how tibbles are implemented using augmented vectors.
+
+### Key Points
+
+- An _atomic vector_ is a homogeneous structure that holds logical, integer, double, character, complex, or raw data.
+- A _list_ (sometimes called a _recursive vector_) is a vector that can hold heterogeneous data, including other vectors.
+- The special value `NULL` represents the absence of a vector, or a vector of length zero, while `NA` represents the absence of a value.
+- Use `typeof(thing)` to obtain the name of the type of `thing`.
+  - Use `is_logical`, `is_integer`, and similarly-named functions to test the types of values.
+  - Use `is_scalar_integer` and similarly-named functions to test the type of a value and whether it is scalar or vector.
+- Use `length(thing)` to obtain the (integer) length of the type of `thing`.
+- Logical vectors can contain `TRUE`, `FALSE`, and `NA`, and are often constructed using Boolean expressions such as comparisons.
+- Integer vectors contain integer values, which should be used for counting.
+  - To force a value to be stored as an integer, write it without a decimal portion and put `L` after it (for "long").
+  - Integer vectors can contain the special value `NA`.
+  - Use `is.na` to check for this special value.
+- Double vectors contain floating-point numbers, which should be used for measurement.
+  - Double vectors can contain the special values `NA`, `NaN` (not a number), `Inf` (infinity), and `-Inf` (negative infinity).
+  - Use `is.finite`, `is.infinite`, and `is.nan` to check for these special values.
+- Character vectors can contain character strings, each of which can be arbitrarily long.
+- _Explicit coercion_ is the use of a function to convert values from one type to another.
+  - Use `as.logical`, `as.character`, `as.integer`, or `as.double` to create a new vector containing the converted values from an original.
+- _Implicit coercion_ occurs when a value or vector of one type is used where another type is expected.
+- The function `c(value1, value2, ...)` creates a vector whose type is the most complex of the types of the provided values.
+  - In order of increasing complexity, types are logical - integer - double - character.
+- To _recycle_ values is to re-use those from the shorter vector involved in an operation to match the length of the longer vector.
+  - A "scalar" in R is actually a vector of length 1, and most recycling involves replicating a scalar to have the same length as a vector.
+  - Base R produces a warning if the length of the longer is not an integer multiple of the length of the shorter.
+  - Tidyverse functions throw errors in this case to forestall unexpected results.
+- Use `rep(values, times)` to recycle (or repeat) values explicitly.
+- Some or all vector elements can be given names when the vector is constructed using `c(name1=value1, ...)`.
+  - Use `purrr:set_names(vector, names)` to set the names of a vector's values after that fact.
+- A vector can be subsetted using `[...]` in four ways:
+  - Subsetting with a vector of positive integers selects those elements in order (possibly with repeats).
+  - Subsetting with a vector of negative integers selects all elements *except* those identified.
+  - Subsetting with zero creates an empty vector.
+  - Subsetting with a logical vector keeps values corresponding to `TRUE` elements of the logical vector.
+  - Subsetting with a character vector keeps only those values with the given names (possibly with repeats).
+  - Using an empty subscript `[]` returns the entire vector.
+- Create lists using `list(value1, value2, ...)` and inspect their structure with `str(name)`.
+- Subsetting a list with `[...]` always returns a list.
+- Subsetting a list with `[[...]]` returns a single component (i.e., has one less level of nesting than the original).
+- `list$name` does the same thing as `[[...]]` for a named element of a list.
+- An _augmented vector_ is one that has extra named _attributes_ attached to it.
+- Get the value of a vector attribute using `attr(vector, name)`.
+- Set the value of a vector attribute using `attr(vector, name) <- value`.
+- Use `attributes(name)` to display all of the attributes of a vector.
+- Vector attributes are used to:
+  - Name the elements of a vector (`names`).
+  - Store dimensions to make a vector behave like a matrix.
+  - Store a class name to implement classes in the S3 object-oriented system.
+- A factor is an integer vector that has the class `factor` and a `levels` attribute with the factors' names.
+- A tibble is a list with three classes and `names` and `row.names` attributes.
+  - All elements of a tibble must be vectors having identical lengths.
