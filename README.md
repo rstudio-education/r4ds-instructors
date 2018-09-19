@@ -806,3 +806,70 @@ ggplot(data = <DATA>) +
 - A factor is an integer vector that has the class `factor` and a `levels` attribute with the factors' names.
 - A tibble is a list with three classes and `names` and `row.names` attributes.
   - All elements of a tibble must be vectors having identical lengths.
+
+## 21. Iteration
+
+### Objectives
+
+- Describe the parts of a simple `for` loop.
+- Create empty vectors of a given type and length.
+- Explain why it is safer to use `seq_along(x)` than `1:length(x)`.
+- Write loops that iterate over the columns of a tibble using either indices or names.
+- Describe and use an efficient way to write loops when the size of the eventual output cannot be known in advance.
+- Explain how to write a loop when the number of required iterations is not known in advance.
+- Describe what happens when looping over the names of a vector that has some unnamed elements.
+- Explain what *higher-order functions* are, explain why they're useful, and write higher-order functions.
+- Describe the `map` family of functions and their purpose, and rewrite simple `for` loops to use `map` functions.
+- Describe the purpose and use of the `safely`, `possibly`, and `quietly` function.
+- Describe and use `map2` and `pmap`.
+- Describe and use `walk`, `walk2`, and `pwalk`.
+- Define *predicate function* and describe higher-order functions that work with predicate functions.
+- Define *reduction* and use `reduce` to implement it.
+- Define *accumulation* and use `accumulate` to implement it.
+
+### Key Points
+
+- A `for` loop usually has:
+  - A variable whose value changes for each iteration of the loop.
+  - A set of values being iterated over (such as the indices of a vector).
+  - A body that is executed once for each iteration.
+  - An output variable where results are stored (whose space is usually preallocated for efficiency).
+- Use `vector("type", length)` to generate a vector of the specified type and length (usually to be filled in later).
+- `1:length(x)` is non-empty when `x` is empty; `seq_along(x)` is empty when `x` is empty, and so is better to use in loop controls.
+- To loop over the columns a tibble:
+  - Use `for (variable in seq_along(tibble))` to loop over the numeric indices of the columns.
+  - Use `for (variable in names(tibble))` to loop over the names of the columns.
+- When the size of a loop's eventual output cannot be known in advance, use a list to collect partial results and then `unlist` or `purrr:flatten_dbl` to combine them into a vector.
+  - If values are tables, collect them in a list and use `bind_rows` to combine them all after the loop.
+- If the number of required iterations is not known in advance, use a `while` loop instead of a `for` loop.
+  - Make sure that the condition of the `while` loop can be changed by the loop body so that the loop does not run forever.
+- If none of the elements of a vector have names, `names(vector)` returns `NULL`, so a `for` loop doesn't execute any iterations.
+- If some of the elements of a vector have names and some don't, `names(vector)` returns empty strings for unnamed elements.
+  - This means that a `for` loop will execute, but that attempts to access unnamed vector elements by name will fail.
+- A _higher-order function_ is one that takes other functions as arguments.
+  - Higher-order functions allow programmers to write control flow once and re-use it with different operations.
+- `map(object, function)` applies `function` to each `object` and returns a list of results.
+  - The specialized functions `map_lgl`, `map_int`, etc., operate on and return vectors of specific types (logical, integer, etc.)
+  - These functions preserve names and pass extra arguments through to the function provided.
+- FIXME: go through "21.5.1 Shortcuts" after learning about formulas.
+- `safely(func)` creates a new function that never throws an error, but instead always returns a list of two values:
+  - `result` is either the original result (if the original function ran without an error) or `NULL` (if there was an error).
+  - `error` is either `NULL` (if the original function ran without an error) or the error object (if there was an error).
+  - `map(data, safely(func))` will therefore return a list of pairs.
+  - And `transpose(map(data, safely(func)))` will return a pair of lists.
+- `possibly(func)` creates a new function that returns a user-supplied default value instead of throwing an error.
+- `quietly(func)` works like `safely` but captures printed output, messages, and warnings.
+- `map2(vec1, vec2, function)` applies `function` to corresponding elements from `vec1` and `vec2`.
+- `pmap(list_of_lists, function)` applies `function` to the values in each of the sub-lists.
+  - It is safest to give the sub-lists names that match the names of the function's parameters rather than relying on positional matching.
+- The `walk` family of functions execute functions without collecting and returning their results.
+- A _predicate function_ is one that returns a single logical value.
+- `keep` and `discard` keep elements of the input where a predicate function returns `TRUE` or `FALSE` respectively.
+- `some` and `every` determine whether a predicate us true for any or all elements of the input data.
+- `detect` returns the first element for which a predicate is true.
+- `detect_index` returns the index of the first element for which a predicate is true.
+- `head_while` and `tail_while` collect runs of values from the start or end of a structure for which a predicate is true.
+- _Reduction_ combines many values using a binary (two-argument) function to create a single resulting value.
+  - Use `reduce(data, function)` to do this.
+  - `reduce` throws an error of `data` is empty unless an initial value `init` is provided.
+- _Accumulation_ performs the same operation as reduction, but keeps the intermediate results (i.e., calculates a running sum).
